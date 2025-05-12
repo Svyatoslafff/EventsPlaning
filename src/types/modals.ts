@@ -1,35 +1,22 @@
-import type { FormikHelpers } from 'formik';
 import type { Dispatch, SetStateAction } from 'react';
-
-export type FormikHandleSubmit<T> = (
-    values: LoginValues,
-    actions: FormikHelpers<T>
-) => void;
+import type { FormikHandleSubmit, SetNameValues } from './formik';
 
 interface IModalProps {
-    // type: ['login', 'register'];
     isOpen: boolean;
     setIsOpen: Dispatch<SetStateAction<boolean>>;
     // + handleSubmit
 }
 
-// Login
-export type LoginValues = {
+export type SetNameModalProps = IModalProps & {
+    handleSubmit: FormikHandleSubmit<SetNameValues>;
+};
+
+export type AuthValues = {
     email: string;
     password: string;
 };
 
-export type LoginModalProps = IModalProps & {
-    handleSubmit: FormikHandleSubmit<LoginValues>;
-};
-
-// Register
-export type RegisterValues = {
-    login: string;
-    email: string;
-    password: string;
-};
-
-export type RegisterModalProps = IModalProps & {
-    handleSubmit: FormikHandleSubmit<RegisterValues>;
+export type AuthModalProps = IModalProps & {
+    type: 'login' | 'register';
+    handleSubmit: FormikHandleSubmit<AuthValues>;
 };

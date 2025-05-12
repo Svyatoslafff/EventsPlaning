@@ -1,59 +1,70 @@
-// import { Field, Form, Formik } from 'formik';
-import { useState } from 'react';
-// import Modal from 'react-modal';
-import LoginModal from '../components/Modals/LoginModal';
-import RegisterModal from '../components/Modals/RegisterModal';
-import type {
-    FormikHandleSubmit,
-    LoginValues,
-    RegisterValues,
-} from '../types/modals';
+import { useEffect, useState } from 'react';
+import { getAuth, updateProfile, onAuthStateChanged } from 'firebase/auth';
+import { nameSchema } from '../validation/auth';
+import { app } from '../main';
+import AuthUI from '../components/AuthUI';
+import TodosUI from '../components/TodosUI';
+import type { FormikHandleSubmit, SetNameValues } from '../types/formik';
+import SetNameModal from '../components/Modals/SetNameModal';
 
 export default function HomePage() {
-    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-    const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+    const auth = getAuth(app);
 
-    const handleLoginSubmit: FormikHandleSubmit<LoginValues> = (
+    const [isSetNameModalOpen, setIsSetNameModalOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                console.log(user);
+                setIsLoggedIn(true);
+            }
+        });
+        setIsLoading(false);
+    }, []);
+
+    const handleSetNameSubmit: FormikHandleSubmit<SetNameValues> = async (
         values,
         action
     ) => {
+        const { name: displayName } = values;
+        const { success } = nameSchema.safeParse(displayName);
+        if (success) {
+            const user = auth.currentUser;
+            if (user) {
+                try {
+                    const data = await updateProfile(user, { displayName });
+                    console.log(data);
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+        }
         action.resetForm();
-        // setIsLoginModalOpen(false);
     };
-
-    const handleRegisterSubmit: FormikHandleSubmit<RegisterValues> = (
-        values,
-        action
-    ) => {
-        action.resetForm();
-        // setIsLoginModalOpen(false);
-    };
-
     return (
-        <section>
-            <h1>Event Planing App</h1>
-            <ul>
-                <li>
-                    <button onClick={() => setIsLoginModalOpen(true)}>
-                        Login
-                    </button>
-                </li>
-                <li>
-                    <button onClick={() => setIsRegisterModalOpen(true)}>
-                        Register
-                    </button>
-                </li>
-            </ul>
-            <LoginModal
-                isOpen={isLoginModalOpen}
-                handleSubmit={handleLoginSubmit}
-                setIsOpen={setIsLoginModalOpen}
-            />
-            <RegisterModal
-                isOpen={isRegisterModalOpen}
-                setIsOpen={setIsRegisterModalOpen}
-                handleSubmit={handleRegisterSubmit}
-            />
-        </section>
+        <>
+            {!isLoading ? (
+                <>
+                    {!isLoggedIn ? (
+                        <AuthUI
+                            auth={auth}
+                            setIsSetNameModalOpen={setIsSetNameModalOpen}
+                        />
+                    ) : (
+                        <TodosUI />
+                    )}
+
+                    <SetNameModal
+                        isOpen={isSetNameModalOpen}
+                        setIsOpen={setIsSetNameModalOpen}
+                        handleSubmit={handleSetNameSubmit}
+                    />
+                </>
+            ) : (
+                <div></div>
+            )}
+        </>
     );
 }
