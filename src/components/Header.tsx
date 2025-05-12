@@ -3,18 +3,8 @@ import { Outlet } from 'react-router-dom';
 export default function Header() {
     return (
         <>
-            <header className="flex flex-row justify-center">
-                <div>Logo</div>
-                {/* <div>
-                    <ul className="flex flex-row">
-                        <li>
-                            <a href="">Login</a>
-                        </li>
-                        <li>
-                            <a href="">Register</a>
-                        </li>
-                    </ul>
-                </div> */}
+            <header className="flex flex-row justify-center items-center h-16 w-screen">
+                <div className="font-bold text-3xl">Logo</div>
             </header>
             <main>
                 <Outlet />

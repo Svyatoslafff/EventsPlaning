@@ -13,12 +13,13 @@ export default function HomePage() {
     const [isSetNameModalOpen, setIsSetNameModalOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [userId, setUserId] = useState('');
 
     useEffect(() => {
         onAuthStateChanged(auth, user => {
             if (user) {
-                console.log(user);
                 setIsLoggedIn(true);
+                setUserId(user.uid);
             }
         });
         setIsLoading(false);
@@ -53,10 +54,11 @@ export default function HomePage() {
                             setIsSetNameModalOpen={setIsSetNameModalOpen}
                         />
                     ) : (
-                        <TodosUI />
+                        <TodosUI userId={userId} />
                     )}
 
                     <SetNameModal
+                        // auth={auth}
                         isOpen={isSetNameModalOpen}
                         setIsOpen={setIsSetNameModalOpen}
                         handleSubmit={handleSetNameSubmit}

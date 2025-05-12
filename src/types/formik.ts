@@ -19,4 +19,5 @@ export type TodoValues = {
     description: string;
     importance: 'normal' | 'important' | 'critical';
     date: Date | null;
+    userId: string;
 };
