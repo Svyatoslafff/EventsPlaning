@@ -14,10 +14,15 @@ export type AuthValues = {
     password: string;
 };
 
-export type TodoValues = {
+export type TodoCreateValues = {
     name: string;
     description: string;
     importance: 'normal' | 'important' | 'critical';
-    date: Date | null;
+    date: Date;
     userId: string;
+    isCompleted: boolean;
+};
+
+export type TodoUpdateValues = TodoCreateValues & {
+    id: string;
 };

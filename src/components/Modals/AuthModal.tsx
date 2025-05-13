@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 import { Formik, Form, Field } from 'formik';
-import type { AuthModalProps } from '../../types/modals';
+import type { AuthModalProps } from '../../types/props';
 
 const loginStyles = {};
 

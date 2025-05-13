@@ -1,5 +1,5 @@
 import Modal from 'react-modal';
-import type { SetNameModalProps } from '../../types/modals';
+import type { SetNameModalProps } from '../../types/props';
 import { Field, Form, Formik } from 'formik';
 
 const initialValues = {

@@ -1,29 +1,14 @@
-import { useEffect, useState } from 'react';
-import { getAuth, updateProfile, onAuthStateChanged } from 'firebase/auth';
+import { useState } from 'react';
+import { updateProfile } from 'firebase/auth';
 import { nameSchema } from '../validation/auth';
-import { app } from '../main';
 import AuthUI from '../components/AuthUI';
 import TodosUI from '../components/TodosUI';
 import type { FormikHandleSubmit, SetNameValues } from '../types/formik';
 import SetNameModal from '../components/Modals/SetNameModal';
+import type { HomePageProps } from '../types/props';
 
-export default function HomePage() {
-    const auth = getAuth(app);
-
+export default function HomePage({ auth, isLoggedIn, userId }: HomePageProps) {
     const [isSetNameModalOpen, setIsSetNameModalOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const [userId, setUserId] = useState('');
-
-    useEffect(() => {
-        onAuthStateChanged(auth, user => {
-            if (user) {
-                setIsLoggedIn(true);
-                setUserId(user.uid);
-            }
-        });
-        setIsLoading(false);
-    }, []);
 
     const handleSetNameSubmit: FormikHandleSubmit<SetNameValues> = async (
         values,
@@ -37,36 +22,31 @@ export default function HomePage() {
                 try {
                     const data = await updateProfile(user, { displayName });
                     console.log(data);
+                    setIsSetNameModalOpen(false);
                 } catch (err) {
                     console.log(err);
                 }
+                setIsSetNameModalOpen(false);
             }
         }
         action.resetForm();
     };
     return (
         <>
-            {!isLoading ? (
-                <>
-                    {!isLoggedIn ? (
-                        <AuthUI
-                            auth={auth}
-                            setIsSetNameModalOpen={setIsSetNameModalOpen}
-                        />
-                    ) : (
-                        <TodosUI userId={userId} />
-                    )}
-
-                    <SetNameModal
-                        // auth={auth}
-                        isOpen={isSetNameModalOpen}
-                        setIsOpen={setIsSetNameModalOpen}
-                        handleSubmit={handleSetNameSubmit}
-                    />
-                </>
+            {!isLoggedIn ? (
+                <AuthUI
+                    auth={auth}
+                    setIsSetNameModalOpen={setIsSetNameModalOpen}
+                />
             ) : (
-                <div></div>
+                <TodosUI userId={userId} />
             )}
+
+            <SetNameModal
+                isOpen={isSetNameModalOpen}
+                setIsOpen={setIsSetNameModalOpen}
+                handleSubmit={handleSetNameSubmit}
+            />
         </>
     );
 }

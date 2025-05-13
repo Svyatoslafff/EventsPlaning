@@ -1,5 +1,5 @@
 import { useState, type Dispatch, type SetStateAction } from 'react';
-import type { AuthValues, FormikHandleSubmit } from '../types/modals';
+import type { AuthValues, FormikHandleSubmit } from '../types/formik';
 import { authSchema } from '../validation/auth';
 import {
     createUserWithEmailAndPassword,

@@ -22,9 +22,7 @@ const analytics = getAnalytics(app);
 
 Modal.setAppElement('#root');
 createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </StrictMode>
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
 );
