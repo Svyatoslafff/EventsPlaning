@@ -72,8 +72,8 @@ export default function ToDoList({
                                     <li>
                                         <p>{HHmmDate}</p>
                                         <DatePicker
-                                            startOpen
-                                            // showTimeSelect
+                                            // startOpen
+                                            showTimeSelect
                                             readOnly
                                             selected={newDate}
                                         />

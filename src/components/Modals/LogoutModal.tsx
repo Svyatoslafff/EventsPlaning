@@ -7,7 +7,12 @@ export default function LogoutModal({
     handleSubmit,
 }: LogoutModalProps) {
     return (
-        <Modal isOpen={isOpen} contentLabel="Delete ToDo">
+        <Modal
+            overlayClassName="modal-bg"
+            className="modal"
+            isOpen={isOpen}
+            contentLabel="Delete ToDo"
+        >
             <div>
                 <h1>Are you sure you want to logout?</h1>
 

@@ -12,15 +12,20 @@ export default function SetNameModal({
     handleSubmit,
 }: SetNameModalProps) {
     return (
-        <Modal isOpen={isOpen} contentLabel="Create name">
+        <Modal
+            overlayClassName="modal-bg"
+            className="modal"
+            isOpen={isOpen}
+            contentLabel="Create name"
+        >
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
                 <Form>
                     <label>
-                        <p>Password</p>
-                        <Field name="name" />
+                        <p>Set Name</p>
+                        <Field type="text" name="name" />
                     </label>
-                    <button type="submit" className="uppercase">
-                        Set name
+                    <button type="submit" className="">
+                        Confirm
                     </button>
                 </Form>
             </Formik>

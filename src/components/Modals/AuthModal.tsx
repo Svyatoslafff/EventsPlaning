@@ -17,8 +17,9 @@ export default function AuthModal({
 }: AuthModalProps) {
     return (
         <Modal
+            overlayClassName="modal-bg"
+            className="modal"
             isOpen={isOpen}
-            // onRequestClose={() => setIsLoginModalOpen(false)}
             contentLabel="Login"
             style={loginStyles}
         >
@@ -28,18 +29,18 @@ export default function AuthModal({
                     {/* {type === 'register' && (
                         <label>
                             <p>Login</p>
-                            <Field name="login" />
+                            <Field type='text' name="login" />
                         </label>
                     )} */}
 
                     <label>
                         <p>Email</p>
-                        <Field name="email" />
+                        <Field type="text" name="email" />
                     </label>
 
                     <label>
                         <p>Password</p>
-                        <Field name="password" />
+                        <Field type="text" name="password" />
                     </label>
                     <button type="submit">
                         {type === 'register' ? 'Register' : 'Login'}

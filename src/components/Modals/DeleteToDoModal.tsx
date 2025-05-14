@@ -11,7 +11,12 @@ export default function DeleteToDoModal({
     handleSubmit,
 }: DeleteToDoModalProps) {
     return (
-        <Modal isOpen={isOpen} contentLabel="Delete ToDo">
+        <Modal
+            overlayClassName="modal-bg"
+            className="modal"
+            isOpen={isOpen}
+            contentLabel="Delete ToDo"
+        >
             <div>
                 <h1>Are you sure you want to delete this task?</h1>
                 <ul className="flex flex-row">

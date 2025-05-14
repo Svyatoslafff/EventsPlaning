@@ -1,2 +1,34 @@
 @import 'tailwindcss';
 @import 'modern-normalize';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+    label {
+        @apply w-full;
+    }
+    input[type='text'] {
+        @apply rounded-[8px] h-10 w-full p-2 pl-4  border-[1px];
+    }
+    button {
+        @apply cursor-pointer rounded-xl text-white bg-blue-500 h-8 w-20;
+    }
+    path {
+        @apply fill-black;
+    }
+}
+
+@layer components {
+    .modal-bg {
+        @apply fixed flex justify-center items-center inset-0 bg-[#00000041];
+    }
+    .modal {
+        @apply flex flex-col relative shadow-2xl h-max w-[70vw] lg:w-[50vw]  md:w-[70vw] bg-white  rounded-4xl p-10;
+    }
+    .modal-title {
+        @apply text-3xl;
+    }
+    .modal-todo-form {
+        @apply flex flex-col justify-center items-center gap-3;
+    }
+}

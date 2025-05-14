@@ -16,14 +16,23 @@ export default function UpdateToDoModal({
         date: chosenDate,
     };
     return (
-        <Modal isOpen={isOpen} contentLabel="Update ToDo">
+        <Modal
+            overlayClassName="modal-bg"
+            className="modal"
+            isOpen={isOpen}
+            contentLabel="Update ToDo"
+        >
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
                 <Form className="flex flex-column gap-2.5">
                     <label>
-                        <Field className="border-2" name="name" />
+                        <Field type="text" className="border-2" name="name" />
                     </label>
                     <label>
-                        <Field className="border-2" name="description" />
+                        <Field
+                            type="text"
+                            className="border-2"
+                            name="description"
+                        />
                     </label>
 
                     <label>

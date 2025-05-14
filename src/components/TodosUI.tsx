@@ -147,7 +147,8 @@ export default function TodosUI({ userId }: { userId: string }) {
         <section>
             <div className="flex flex-col gap-5">
                 <button
-                    className="w-full h-10 bg-green-500 rounded-xl text-white font-bold text-4xl"
+                    className="button-all w-full h-10 bg-green-500  text-white font-bold text-4xl"
+                    // className=" w-full h-10 bg-green-500 rounded-xl text-white font-bold text-4xl"
                     type="button"
                     onClick={() => setIsCreateToDoModalOpen(true)}
                 >
